@@ -1,0 +1,11 @@
+# OASIS_START
+# DO NOT EDIT (digest: 0621429b8386906b28ab56fdef910d42)
+version = "0.1"
+description = "A library handling latex markup style text."
+archive(byte) = "ocaml-latexmarkup.cma"
+archive(byte, plugin) = "ocaml-latexmarkup.cma"
+archive(native) = "ocaml-latexmarkup.cmxa"
+archive(native, plugin) = "ocaml-latexmarkup.cmxs"
+exists_if = "ocaml-latexmarkup.cma"
+# OASIS_STOP
+
