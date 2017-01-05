@@ -7,19 +7,52 @@
 
 open Eliom_content.Html5.D
 
-val eliom_preset : ?colors:string list -> ?smileys_dir:string -> ?images_dir:string -> ?latex_dir:string -> begin
+type text_format :
+  | Bold | Italic | Underline | Strike
+  | Link
+  | Left | Right | Center
+  | Secret
 
-  val textarea : string -> Html5_types.flow5 elt
-  (** [textarea id] creates a textareau with id [id], and provides buttons that
-   * insert commands and environments easily. *)
+type color :
+  | Name of string
+  | Rgb of int * int * int * int
 
-  val preset_full : (Html5_types.flow5 elt) Preset.t
+module type CONFIG = sig
+  val colors : color list
+  (** An empty list deactivates the color functionality. *)
 
-  (* The following presets are not meant to be used with parse in your
-   * application but to be used by the commands and environments in
-   * [preset_full]. *)
+  val smileys_dir : string
+  (** An empty string or a directory that does not exists  deactivates the
+   * smiley functionality. *)
 
-  val preset_phrasing : (Html5_types.phrasing elt) Preset.t
-  val preset_coint : (Html5_types.no_interactive elt) Preset.t
+  val images_dir : string
+  (** An empty string or a directory that does not exists deactivates the
+   * images functionality. *)
+
+  val sizes : int list
+  (** An empty list deactivates the sizes functionality. Negative values are
+   * wiped out before this check. *)
+
+  val headers : int -> bool
+  (** Specifies which headers (from 1 to 6) are available. If no one is
+   * available, the headers bar will not be shown. *)
+
+  val text_formats : text_format -> bool
+  (** Specifies which text formats are available. If no one is available, the
+   * text format bar will not be shown. *)
+
+  val math_inline : string -> Html5_types.flow5 elt
+  val math_display : string -> Html5_types.flow5 elt
+end
+
+module DefaultConfig = sig
+  include CONFIG
+end
+
+module Make (Config : CONFIG) = sig
+
+  val preset : (Html5_types.flow5 elt) Preset.t
+
+  val editor : string -> Html5_types.flow5 elt
 
 end
