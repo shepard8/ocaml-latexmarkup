@@ -1,11 +1,13 @@
 {
-  open Tokens
+  open Parser
 }
 
+let id = ['a'-'z' 'A'-'Z']+
+
 rule token = parse
-| "\\begin{" { BEGIN }
-| "\\end{" { END }
-| '\\' (['a'-'z' 'A'-'Z']+ as s) { CMD(s) }
+| "\\begin{" (id as c) "}" { BEGIN(c) }
+| "\\end{" (id as c) "}" { END(c) }
+| '\\' (id as c) { CMD(c) }
 | '{' { LB }
 | '}' { RB }
 | '[' { LS }

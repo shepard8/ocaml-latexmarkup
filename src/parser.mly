@@ -1,22 +1,11 @@
 %{
-  open Tokens
   open Printf
-
-  exception Begin_end_error of string * string
-
-  type t =
-    | Str of string
-    | Nl
-    | Env of string * t list * t list * t list
-    | Cmd of string * t list * t list
-    | Inline of string
-    | Display of string
 %}
 
-%token <string> CMD STR
-%token BEGIN END LB RB LS RS LINLINE RINLINE LDISPLAY RDISPLAY NL EOF
+%token <string> CMD STR BEGIN END
+%token LB RB LS RS LINLINE RINLINE LDISPLAY RDISPLAY NL EOF
 
-%start <t> main
+%start <Ast.t list> main
 
 %%
 
@@ -25,25 +14,26 @@ main :
 
 content :
   | c=CMD o=list(opt) a=list(arg)
-  { Cmd (c, o, a) }
-  | BEGIN c=arg o=list(opt) a=list(arg) b=list(content) END c'=arg
+  { Ast.Cmd (c, o, a) }
+  | c=BEGIN o=list(opt) a=list(arg) b=list(content) d=END
   {
-    if c <> c' then raise (BeginEndError (c, c'))
-    else Env (c, o, a, b)
+    if c <> d then raise (Ast.Begin_end_error (c, d))
+    else Ast.Env (c, o, a, b)
   }
   | LINLINE b=list(overlooked) RINLINE
-  { Inline (String.concat "" b) }
+  { Ast.Inline (String.concat "" b) }
   | LDISPLAY b=list(overlooked) RDISPLAY
-  { Display (String.concat "" b) }
-  | b=list(str)
-  { Str (String.concat "" b) }
-  | NL { Nl }
+  { Ast.Display (String.concat "" b) }
+  | b=STR
+  { Ast.Str b }
+  | NL
+  { Ast.Nl }
 
 opt :
-  | LS content RS
+  | LS b=list(content) RS { b }
 
 arg :
-  | LB content RB
+  | LB b=list(content) RB { b }
 
 overlooked :
   | c=CMD { "\\" ^ c }
@@ -55,11 +45,4 @@ overlooked :
   | LS { "[" }
   | RS { "]" }
   | NL { "\n" }
-
-str :
-  | b=STR { b }
-  | LS { "[" }
-  | RS { "]" }
-  | LB { "{" }
-  | RB { "}" }
 
