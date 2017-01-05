@@ -1,5 +1,5 @@
 (* OASIS_START *)
-(* DO NOT EDIT (digest: ce9d14bdd336825964ba12e9929891dc) *)
+(* DO NOT EDIT (digest: f1c7b9acf1c8426d708b77fa11de1f75) *)
 
 This is the INSTALL file for the ocaml-latexmarkup distribution.
 
@@ -13,6 +13,7 @@ In order to compile this package, you will need:
 
 * ocaml for all, doc ocaml-latexmarkup_api
 * findlib
+* eliom for library ocaml-latexmarkup-eliom
 
 Installing
 ==========

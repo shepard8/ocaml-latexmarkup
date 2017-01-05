@@ -23,9 +23,12 @@ Library "ocaml-latexmarkup"
   Path: src
   Modules: Ast, Lexer, Parser, Preset
 
-#Library "ocaml-latexmarkup-eliom"
-#  Path: src
-#  Modules: Eliom
+Library "ocaml-latexmarkup-eliom"
+  Path: src
+  Modules: Eliom
+  BuildDepends: eliom.server
+  FindlibParent: ocaml-latexmarkup
+  FindlibName: eliom
 
 #Library "ocaml-latexmarkup-math"
 #  Path: src

@@ -1,5 +1,5 @@
 (* OASIS_START *)
-(* DO NOT EDIT (digest: f4dbf595bd4691c1c658597136e262d4) *)
+(* DO NOT EDIT (digest: 5ec31003df2fd650df424eb778a4ee68) *)
 module OASISGettext = struct
 (* # 22 "src/oasis/OASISGettext.ml" *)
 
@@ -882,7 +882,11 @@ end
 open Ocamlbuild_plugin;;
 let package_default =
   {
-     MyOCamlbuildBase.lib_ocaml = [("ocaml-latexmarkup", ["src"], [])];
+     MyOCamlbuildBase.lib_ocaml =
+       [
+          ("ocaml-latexmarkup", ["src"], []);
+          ("ocaml-latexmarkup-eliom", ["src"], [])
+       ];
      lib_c = [];
      flags = [];
      includes = []
@@ -893,6 +897,6 @@ let conf = {MyOCamlbuildFindlib.no_automatic_syntax = false}
 
 let dispatch_default = MyOCamlbuildBase.dispatch_default conf package_default;;
 
-# 897 "myocamlbuild.ml"
+# 901 "myocamlbuild.ml"
 (* OASIS_STOP *)
 Ocamlbuild_plugin.dispatch dispatch_default;;

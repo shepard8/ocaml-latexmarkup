@@ -7,15 +7,13 @@
 
 open Eliom_content.Html5.D
 
-type text_format :
+type text_format =
   | Bold | Italic | Underline | Strike
   | Link
   | Left | Right | Center
   | Secret
 
-type color :
-  | Name of string
-  | Rgb of int * int * int * int
+type color = string
 
 module type CONFIG = sig
   val colors : color list
@@ -45,11 +43,11 @@ module type CONFIG = sig
   val math_display : string -> Html5_types.flow5 elt
 end
 
-module DefaultConfig = sig
+module DefaultConfig : sig
   include CONFIG
 end
 
-module Make (Config : CONFIG) = sig
+module Make (Config : CONFIG) : sig
 
   val preset : (Html5_types.flow5 elt) Preset.t
 

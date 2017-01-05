@@ -1,5 +1,5 @@
 # OASIS_START
-# DO NOT EDIT (digest: 0621429b8386906b28ab56fdef910d42)
+# DO NOT EDIT (digest: 56db4df450e0ec82490a02d1de65c5ec)
 version = "0.1"
 description = "A library handling latex markup style text."
 archive(byte) = "ocaml-latexmarkup.cma"
@@ -7,5 +7,15 @@ archive(byte, plugin) = "ocaml-latexmarkup.cma"
 archive(native) = "ocaml-latexmarkup.cmxa"
 archive(native, plugin) = "ocaml-latexmarkup.cmxs"
 exists_if = "ocaml-latexmarkup.cma"
+package "eliom" (
+ version = "0.1"
+ description = "A library handling latex markup style text."
+ requires = "eliom.server"
+ archive(byte) = "ocaml-latexmarkup-eliom.cma"
+ archive(byte, plugin) = "ocaml-latexmarkup-eliom.cma"
+ archive(native) = "ocaml-latexmarkup-eliom.cmxa"
+ archive(native, plugin) = "ocaml-latexmarkup-eliom.cmxs"
+ exists_if = "ocaml-latexmarkup-eliom.cma"
+)
 # OASIS_STOP
 
