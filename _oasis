@@ -17,7 +17,7 @@ Description: Nowadays most of the websites allowing their users to post content
 
 OASISFormat: 0.4
 BuildTools: ocamlbuild
-Plugins: META (0.4), DevFiles (0.4)
+Plugins: META (0.4), DevFiles (0.4), StdFiles (0.4)
 
 Library "ocaml-latexmarkup"
   Path: src
